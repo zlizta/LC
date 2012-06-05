@@ -12,6 +12,8 @@ module LC1 where
 --
 -- Exercise: correct the bug.
 --
+-- There are other errors because the definitions of check and infer are not quite complete yet.
+--
 -- I will also provide a new version where Enum types and Label/Term associations in the case constructs are implemented as Set and Map respectively.
  
 
