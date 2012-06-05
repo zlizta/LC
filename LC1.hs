@@ -3,7 +3,7 @@ module LC1 where
 -- Implementation of Simply Typed Lambda Calculus with finite enumeration types.
 -- 4th June 2012
 -- Authors: ANBERREE Thomas, MIANLAI Zhou, NUO Li
--- Done at UNNC, SEB438 during a "Reading group meeting" overseen by Thomas.
+-- Done at UNNC, SEB438 during our "Reading group meeting".
 -- 
 -- This version is the one we came up with together with only slight modifications
 -- and comments by me (Thomas). 
@@ -12,7 +12,7 @@ module LC1 where
 --
 -- Exercise: correct the bug.
 --
--- I will also provide a new version where Enum types and Label/Term associations in the case construct are implement as Set and Map respectively.
+-- I will also provide a new version where Enum types and Label/Term associations in the case constructs are implemented as Set and Map respectively.
 
 
 import Data.Maybe (fromJust)
