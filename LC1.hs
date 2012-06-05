@@ -13,7 +13,7 @@ module LC1 where
 -- Exercise: correct the bug.
 --
 -- I will also provide a new version where Enum types and Label/Term associations in the case constructs are implemented as Set and Map respectively.
-
+ 
 
 import Data.Maybe (fromJust)
 
