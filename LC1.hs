@@ -64,7 +64,7 @@ x' = Var x
 
 id'       = Lam x x'
 unit      = Enum ["top"]
-top       = Lab "top"
+star      = Lab "*"
 bool      = Enum ["true","false"]
 
 a1        = Fun unit unit
@@ -76,7 +76,7 @@ test 0     = check [] (Lam x id') (Fun unit (Fun bool unit))
 test 1     = check [] id' a1
 -- Expected True
 
-test 2     = check [] (App id' top) unit 
+test 2     = check [] (App id' star) unit 
 -- Expected error "cannot infer"
 
 
