@@ -35,7 +35,7 @@ instance Show Error where
 
 
 infer :: Environment -> Context -> Term -> Either Error Type
-infer env g (Var loc x)     = case lookupType e g x of 
+infer env g (Var loc x)     = case lookupType env g x of 
                                Just a  -> Right a
                                Nothing -> Left $ Error ["infer","Var"] loc ["Undeclared name ",x]  
                               
@@ -57,7 +57,7 @@ check env g (App     s t) a         = case infer env g (App s t) of
                                      Right a' -> if a == a' then Right ()
                                                             else Left $  Error ["check","App"] Unknown ["Wrong type"]
                                      Left e -> Left e
-check env g (Lam _ (x,t)) (Q _ Pi (a,(_,b)))        = let (env',g') = declareType e g x a
+check env g (Lam _ (x,t)) (Q _ Pi (a,(_,b)))        = let (env',g') = declareType env g x a
                                                        in check env' g' t b
 check env g (Lam loc (x,t)) _                       = Left $  Error ["check","Lam"] loc ["Wrong type"]                  
 check env g (Lab loc l) (Enum _ ls)   | member l ls = Right ()

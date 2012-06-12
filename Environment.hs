@@ -56,7 +56,10 @@ extendContext :: Context -> Name -> Index -> Context
 extendContext s x i = (x,i):s
 
 declareType :: Environment -> Context -> Name -> Type -> (Environment, Context)
-declareType e g x =  
+declareType e g x =  undefined
+
+lookupType :: Environment -> Context -> Name -> Maybe Type
+lookupType e g x = undefined
 -- * Environments
 emptyEnvironment = empty
 
