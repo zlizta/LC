@@ -19,8 +19,10 @@ import qualified Data.Set as Set
 import Data.Map (Map,keysSet)
 import qualified Data.Map as Map
 
+
 import Syntax
 import Location
+import Environment
 import Utilities
 
 
@@ -31,54 +33,52 @@ data Error = Error Source Location Message
 instance Show Error where
    show (Error s l m) = unlines [angles (sepByComma s),locMessage l,concat m]
 
-     
-type Context = [(Name, Type)]
 
-
-infer :: Context -> Term -> Either Error Type
-infer g (Var loc x)     = case lookup x g of 
+infer :: Environment -> Context -> Term -> Either Error Type
+infer env g (Var loc x)     = case lookupType e g x of 
                                Just a  -> Right a
                                Nothing -> Left $ Error ["infer","Var"] loc ["Undeclared name ",x]  
                               
-infer g (App s t)       = case infer g s of
-                               Right (Q loc Pi (a,(_,b))) -> case check g t a of
+infer env g (App s t)       = case infer env g s of
+                               Right (Q loc Pi (a,(_,b))) -> case check env g t a of
                                                                   Right ()  ->  Right b
                                                                   Left e    ->  Left e 
                                Left e                     -> Left e
-infer g (Lam loc (x,t))     =  Left $  Error ["infer","Lambda"] loc ["Cannot infer the type of a lambda abstraction"] 
-infer g (Lab loc l)         =  Left $  Error ["infer","Label"]  loc ["Cannot infer the type of label ",l] 
-infer g (Case loc t lus)    =  Left $  Error ["infer","Case"]   loc ["Cannot infer the type of a case construct"] 
+infer env g (Lam loc (x,t))     =  Left $  Error ["infer","Lambda"] loc ["Cannot infer the type of a lambda abstraction"] 
+infer env g (Lab loc l)         =  Left $  Error ["infer","Label"]  loc ["Cannot infer the type of label ",l] 
+infer env g (Case loc t lus)    =  Left $  Error ["infer","Case"]   loc ["Cannot infer the type of a case construct"] 
 
-check :: Context -> Term -> Type -> Either Error ()
-check g (Var loc x) a           = case infer g (Var loc x) of
+check :: Environment -> Context -> Term -> Type -> Either Error ()
+check env g (Var loc x) a           = case infer env g (Var loc x) of
                                      Right a' -> if a == a' then Right ()
                                                             else Left $  Error ["check","Var"] loc ["Wrong type"]
                                      Left e -> Left e
-check g (App     s t) a         = case infer g (App s t) of
+check env g (App     s t) a         = case infer env g (App s t) of
                                      Right a' -> if a == a' then Right ()
                                                             else Left $  Error ["check","App"] Unknown ["Wrong type"]
                                      Left e -> Left e
-check g (Lam _ (x,t)) (Q _ Pi (a,(_,b)))        = check ((x,a):g) t b
-check g (Lam loc (x,t)) _                       = Left $  Error ["check","Lam"] loc ["Wrong type"]                  
-check g (Lab loc l) (Enum _ ls)   | member l ls = Right ()
+check env g (Lam _ (x,t)) (Q _ Pi (a,(_,b)))        = let (env',g') = declareType e g x a
+                                                       in check env' g' t b
+check env g (Lam loc (x,t)) _                       = Left $  Error ["check","Lam"] loc ["Wrong type"]                  
+check env g (Lab loc l) (Enum _ ls)   | member l ls = Right ()
                                   | otherwise   = Left $ Error ["check","Lab"] loc ["Label ",l," is not in ",braces (sepByComma (Set.elems ls))]
-check g (Case loc t lus) a                      = case check g t (Enum Unknown (keysSet lus)) of
-                                                   Right () -> sequence (flip (check g) a) (Map.elems lus)
+check env g (Case loc t lus) a                      = case check env g t (Enum Unknown (keysSet lus)) of
+                                                   Right () -> sequence (flip (check env g) a) (Map.elems lus)
                                                                 where
                                                                 sequence f []     = Right ()
                                                                 sequence f (x:xs) = case f x of {Right () -> sequence f xs; Left e -> Left e}
                                                    Left e -> Left e
                                                    
                                                   
-check g t a = error ("<check> " ++ show t ++ "\n<check> " ++ show a)      -- To know which cases are missing.
+check env g t a = error ("<check> " ++ show t ++ "\n<check> " ++ show a)      -- To know which cases are missing.
 
 
--- Big step evaluation     
+-- Big step evaluation  (for ground closed terms only, for the moment).  
 eval :: Term -> Term
 eval (App    t u)      = let t' = eval t in case t' of  Lam _ (x,r) -> eval (subst r u x)                  
 eval (Case loc t lus)  = let t' = eval t in case t' of  Lab _ l   -> fromJust (Map.lookup l lus)
 eval (Lab  loc l)      = Lab loc l
-eval (Lam  loc (x,t))    = Lam loc (x,t)
+eval (Lam  loc (x,t))  = Lam loc (x,t)
 eval (Var  loc x)      = Var loc x
 
 -- Substitution

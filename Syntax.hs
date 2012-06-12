@@ -5,6 +5,7 @@ import Data.Map
 
 import Location
 
+type Index   = Int
 type Type    = Term
 type Name    = String    -- ^ Identifiers
 data ProgramEntry = Decl Location Name Type
@@ -37,6 +38,7 @@ data Term    = Var     Location Name                         -- variables
              | Rec     Location Term                         -- Rec T
              | Fold    Location Term                         -- fold t
              | Unfold  Location Term (Bind Term)             -- unfold t as x -> u
+             | Undefined Index
              deriving (Show, Eq, Ord)
 
 instance GetLoc Term where

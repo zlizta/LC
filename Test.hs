@@ -9,13 +9,19 @@ import LC1c
 
 pt s = parse sTerm "" s
 
+pt' s = case pt s of Right x -> x
+
 checkTest :: String -> String -> String
 checkTest st sa = "\n" ++ st ++ " : " ++ sa ++ "\n  ==> "
                   ++ case pt st of
 	      	     	   	 Right t -> case pt sa of
 	      	     	   	                      Right a -> show (check [] t a) 
 
-
+inferTest :: String -> String
+inferTest st = "\n" ++ st ++ " : ?\n  ==> "
+                  ++ case pt st of
+	      	     	   	 Right t -> show (infer [("id",pt' "{ a } -> { a }")] t)
+ 
 go = putStrLn $ concat tests
 
 tests =  [ 
