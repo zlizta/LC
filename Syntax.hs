@@ -8,6 +8,7 @@ import Location
 type Index   = Int
 type Type    = Term
 type Name    = String    -- ^ Identifiers
+
 data ProgramEntry = Decl Location Name Type
                   | Defn Location Name Term
                   deriving (Show, Eq, Ord)

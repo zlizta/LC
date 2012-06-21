@@ -1,0 +1,72 @@
+l1 : { a b c };
+l1 = 'a;
+
+l2 : { a a a };
+l2 = 'a;
+
+_l3 : { a };
+l3 = 'b;
+
+id1 : { a } -> { a };
+id1 = \ x -> x;
+
+K1 : { a } -> { b } -> { a };
+K1 = \ x -> (\ y -> x) ;
+
+_K2 : { a } -> { b } -> { a };
+K2 = \ x -> (\ y -> y) ;
+
+_K3 : { a } -> { b } -> { a };
+K3 = \ x -> (\ x -> x) ;
+
+K4 : { a } -> { b } -> { b };
+K4 = \ x -> (\ x -> x) ;
+
+K5 : { a } -> { b } -> { b };
+K5 = \ x -> (\ y -> y) ;
+
+id2 : ({ a } -> { b }) -> { a } -> { b };
+id2 = \ x -> x;
+
+_id3 : ({ a } -> { b }) -> { c } -> { b };
+id3 = \ x -> x;
+
+_l4 : { a };
+l4 = (\x -> x) 'a;
+
+_l5 : { a };
+l5 = id2 'a;
+
+l6 : { a };
+l6 = id1 'a;
+
+c1 : { a };
+c1 = case 'a of {a -> 'a};
+
+c2 : { b };
+c2 = case 'a of {a -> 'b};
+
+_c3 : { x };
+c3 = case 'a of {a -> 'x | b -> 'y};
+
+c4 : { x y z };
+c4 = case 'a of {a -> 'x | b -> 'y};
+
+c5 : { x };
+c5 = case id1 'a of {a -> 'x};
+
+c6 : { x };
+c6 = case 'a of {a -> 'x | b -> 'x};
+
+
+_c6 : { x };
+c6 = case id1 'a of {a -> 'x | b -> 'x};
+
+id2 : { a b } -> { a b };
+id2 = \x -> x;
+
+c7 : { x };
+c7 = case id2 'a of {a -> 'x | b -> 'x};
+
+_c8 : { x y };
+c8 = case id2 'a of {a -> 'x | b -> 'y};

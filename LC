@@ -1,0 +1,17 @@
+<NotepadPlus>
+    <Session activeView="0">
+        <mainView activeIndex="8">
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1308" startPos="0" endPos="0" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Values.hs" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Lexer.hs" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="708" startPos="0" endPos="0" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Location.hs" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Parser.hs" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1" startPos="0" endPos="0" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Smart.hs" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="2184" startPos="0" endPos="0" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Syntax.hs" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="960" startPos="0" endPos="0" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Test.hs" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="504" startPos="0" endPos="0" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Utilities.hs" />
+            <File firstVisibleLine="2" xOffset="0" scrollWidth="2086" startPos="632" endPos="574" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\Environment.hs" />
+            <File firstVisibleLine="15" xOffset="0" scrollWidth="1824" startPos="978" endPos="978" selMode="0" lang="Haskell" encoding="-1" filename="F:\work\Thomas LC\LC1d.hs" />
+        </mainView>
+        <subView activeIndex="0" />
+    </Session>
+</NotepadPlus>

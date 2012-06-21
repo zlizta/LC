@@ -18,3 +18,6 @@ braces = between "{" "}"
 sepBy c = concat . (intersperse c)
 
 sepByComma = sepBy ","
+
+proj31 (x1,x2,x3) = x1
+proj32 (x1,x2,x3) = x2
