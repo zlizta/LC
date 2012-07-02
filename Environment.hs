@@ -50,16 +50,16 @@ emptyContext = []
 extendContext :: Context -> Name -> Index -> Context                        
 extendContext g x i = (x,i) : g
 
-declareType :: Environment -> Context -> Name -> Closure Type -> (Environment, Context)
-declareType e g x ha = let i = size e -- i is a NEW index
+env_declareType :: Environment -> Context -> Name -> Closure Type -> (Environment, Context)
+env_declareType e g x ha = let i = size e -- i is a NEW index
                        in (insert i (cUndefined i,ha,PrintInfo x False) e , extendContext g x i )
 
-declareTerm :: Environment -> Context -> Name -> Closure Term -> (Environment, Context)
-declareTerm e g x gt = let i = size e -- i is a NEW index
+env_declareTerm :: Environment -> Context -> Name -> Closure Term -> (Environment, Context)
+env_declareTerm e g x gt = let i = size e -- i is a NEW index
                        in (insert i (gt,cUndefined i,PrintInfo x False) e , extendContext g x i )
 
-defineTerm :: Environment -> Context -> Name -> Closure Term -> Environment
-defineTerm e g x gt = adjust (\(x,y,z) -> (gt,y,z)) (fromJust $ Prelude.lookup x g) e
+env_defineTerm :: Environment -> Context -> Name -> Closure Term -> Environment
+env_defineTerm e g x gt = adjust (\(x,y,z) -> (gt,y,z)) (fromJust $ Prelude.lookup x g) e
 
 
                        

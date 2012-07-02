@@ -137,7 +137,7 @@ atom = choice
   , Case  <$>     locReserved "case"
               <*> sTerm
               <*  reserved    "of"
-              <*> braces (Map.fromList <$> sBranch `sepBy` locReservedOp "|")
+              <*> braces (Map.fromList <$> sBranch `sepBy` locReservedOp "|") -- TO DO : detect  repetitions of cases and raise error
 
   , Box   <$>     location
               <*> brackets sTerm

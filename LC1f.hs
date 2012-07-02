@@ -98,6 +98,10 @@ eq (_,a) (_,a') = if a == a'
                       then return ()
                       else evalerror ["eq"] (getLoc a) ["Type mismatch: \n",show a,"\n",show a'] 
 
+eqTerm :: Closure Term -> Closure Term -> Eval ()
+-- EXERCISE: what can we do? You may assume that the types of the two arguments are known to be equal if it helps.
+eqTerm (g,t) (g',t') = ?
+
 
 -- Type inference
 infer :: Closure Term -> Eval (Closure Type)

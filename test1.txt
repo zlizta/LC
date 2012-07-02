@@ -68,5 +68,17 @@ id2 = \x -> x;
 c7 : { x };
 c7 = case id2 'a of {a -> 'x | b -> 'x};
 
-_c8 : { x y };
+c8 : { x y };
 c8 = case id2 'a of {a -> 'x | b -> 'y};
+
+x : { a b };
+x = 'a;
+
+c9 : { c d  };
+c9 = case x of 
+         {a -> case x of 
+                   {a ->  'c
+                   |b ->  'd } 
+         |b -> case x of
+                   {a -> 'd
+                   |b -> 'c}};
